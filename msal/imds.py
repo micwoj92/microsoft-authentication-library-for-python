@@ -5,6 +5,7 @@
 import json
 import logging
 import os
+import socket
 import time
 try:  # Python 2
     from urlparse import urlparse
@@ -57,6 +58,9 @@ def _obtain_token_on_azure_vm(http_client, resource, client_id=None):
         raise
 
 def _obtain_token_on_app_service(http_client, endpoint, identity_header, resource, client_id=None):
+    """Obtains token for
+    `App Service <https://learn.microsoft.com/en-us/azure/app-service/overview-managed-identity?tabs=portal%2Chttp#rest-endpoint-reference>`_
+    """
     # Prerequisite: Create your app service https://docs.microsoft.com/en-us/azure/app-service/quickstart-python
     # Assign it a managed identity https://docs.microsoft.com/en-us/azure/app-service/overview-managed-identity?tabs=portal%2Chttp
     # SSH into your container for testing https://docs.microsoft.com/en-us/azure/app-service/configure-linux-open-ssh-session
@@ -73,7 +77,7 @@ def _obtain_token_on_app_service(http_client, endpoint, identity_header, resourc
         headers={
             "X-IDENTITY-HEADER": identity_header,
             "Metadata": "true",  # Unnecessary yet harmless for App Service,
-            # It will be needed by Azure Automation 
+            # It will be needed by Azure Automation
             # https://docs.microsoft.com/en-us/azure/automation/enable-managed-identity-for-automation#get-access-token-for-system-assigned-managed-identity-using-http-get
             },
         )
@@ -94,4 +98,67 @@ def _obtain_token_on_app_service(http_client, endpoint, identity_header, resourc
     except ValueError:
         logger.debug("IMDS emits unexpected payload: %s", resp.text)
         raise
+
+
+class ManagedIdentity(object):
+    _instance, _tenant = socket.getfqdn(), "managed_identity"  # Placeholders
+
+    def __init__(self, http_client, client_id=None, token_cache=None):
+        """Create a managed identity object.
+
+        :param http_client:
+            An http client object. For example, you can use `requests.Session()`.
+
+        :param str client_id:
+            Optional.
+            It accepts the Client ID (NOT the Object ID) of your user-assigned managed identity.
+            If it is None, it means to use a system-assigned managed identity.
+
+        :param token_cache:
+            Optional. It accepts a :class:`msal.TokenCache` instance to store tokens.
+        """
+        self._http_client = http_client
+        self._client_id = client_id
+        self._token_cache = token_cache
+
+    def acquire_token(self, resource):
+        access_token_from_cache = None
+        if self._token_cache:
+            matches = self._token_cache.find(
+                self._token_cache.CredentialType.ACCESS_TOKEN,
+                target=[resource],
+                query=dict(
+                    client_id=self._client_id,
+                    environment=self._instance,
+                    realm=self._tenant,
+                    home_account_id=None,
+                ),
+            )
+            now = time.time()
+            for entry in matches:
+                expires_in = int(entry["expires_on"]) - now
+                if expires_in < 5*60:  # Then consider it expired
+                    continue  # Removal is not necessary, it will be overwritten
+                logger.debug("Cache hit an AT")
+                access_token_from_cache = {  # Mimic a real response
+                    "access_token": entry["secret"],
+                    "token_type": entry.get("token_type", "Bearer"),
+                    "expires_in": int(expires_in),  # OAuth2 specs defines it as int
+                }
+                if "refresh_on" in entry and int(entry["refresh_on"]) < now:  # aging
+                    break  # With a fallback in hand, we break here to go refresh
+                return access_token_from_cache  # It is still good as new
+        result = _obtain_token(self._http_client, resource, client_id=self._client_id)
+        if self._token_cache and "access_token" in result:
+            self._token_cache.add(dict(
+                client_id=self._client_id,
+                scope=[resource],
+                token_endpoint="https://{}/{}".format(self._instance, self._tenant),
+                response=result,
+                params={},
+                data={},
+                #grant_type="placeholder",
+            ))
+            return result
+        return access_token_from_cache or result
 
