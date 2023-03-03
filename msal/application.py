@@ -1984,6 +1984,24 @@ class PublicClientApplication(ClientApplication):  # browser app or mobile app
 
 class ConfidentialClientApplication(ClientApplication):  # server-side web app
 
+    def __init__(self, client_id, client_credential=None, **kwargs):
+        """Create a confidential client application (CCA) which has its own credential.
+
+        :param client_credential:
+            It can also aceept an instance of msal.ManagedIdentity.
+            That way, your confidential client application (CCA)
+            does not need to maintain its own credential,
+            it will use the managed identity as its credential.
+        """
+        from .imds import ManagedIdentity
+        if isinstance(client_credential, ManagedIdentity):
+            client_credential = {
+                "client_assertion": lambda mi=client_credential: mi.acquire_token(
+                    "api://AzureADTokenExchange")["access_token"]
+            }
+        super(ConfidentialClientApplication, self).__init__(
+            client_id, client_credential=client_credential, **kwargs)
+
     def acquire_token_for_client(self, scopes, claims_challenge=None, **kwargs):
         """Acquires token for the current confidential client, not for an end user.
 

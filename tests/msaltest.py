@@ -146,9 +146,20 @@ def acquire_token_for_managed_identity(app):
     pprint.pprint(app.acquire_token(_select_options([
         "https://management.azure.com",
         "https://graph.microsoft.com",
+        "api://AzureADTokenExchange",  # It will become aud claim "fb60f99c-7a34-4190-8149-302f77469936"
         ],
         header="Acquire token for this resource",
         accept_nonempty_string=True)))
+
+def acquire_token_for_client(app):
+    """acquire_token_for_client() - Only for confidential client app"""
+    result = app.acquire_token_for_client(
+        _input_scopes(),
+        params={"dc": "ESTS-PUB-WUS2-AZ1-FD000-TEST1"},  # TODO: Test only
+        )
+    if 700222 in result.get("error_codes", []):
+        logging.warning("Your app needs to be onboarded to federation allow-list")
+    pprint.pprint(result)
 
 def exit(app):
     """Exit"""
@@ -177,11 +188,20 @@ def _managed_identity():
 
 def main():
     print("Welcome to the Console Test App for MSAL Python {}\n".format(msal.__version__))
+    mi_placeholder = {
+        "test_managed_identity": None,
+        "name": "Managed Identity (Only works when running inside a supported environment, such as Azure VM, Azure App Service, Azure Automation)",
+    }
     chosen_app = _select_options([
         {"client_id": AZURE_CLI, "name": "Azure CLI (Correctly configured for MSA-PT)"},
         {"client_id": VISUAL_STUDIO, "name": "Visual Studio (Correctly configured for MSA-PT)"},
         {"client_id": "95de633a-083e-42f5-b444-a4295d8e9314", "name": "Whiteboard Services (Non MSA-PT app. Accepts AAD & MSA accounts.)"},
-        {"test_managed_identity": None, "name": "Managed Identity (Only works when running inside a supported environment, such as Azure VM, Azure App Service, Azure Automation)"},
+        {
+            "client_id": "289a413d-284b-4303-9c79-94380abe5d22",
+            "client_credential": None,
+            "name": "Ray Luo's confidential test app",
+        },
+        mi_placeholder,
         ],
         option_renderer=lambda a: a["name"],
         header="Impersonate this app (or you can type in the client_id of your own app)",
@@ -199,10 +219,25 @@ def main():
             header="Input authority (Note that MSA-PT apps would NOT use the /common authority)",
             accept_nonempty_string=True,
         )
-        app = msal.PublicClientApplication(
-            chosen_app["client_id"] if isinstance(chosen_app, dict) else chosen_app,
-            authority=authority,
-            allow_broker=_input_boolean("Allow broker? (Azure CLI currently only supports @microsoft.com accounts when enabling broker)"),
+        if isinstance(chosen_app, dict) and "client_credential" in chosen_app:
+            credential = _select_options([
+                mi_placeholder,
+                ],
+                option_renderer=lambda a: a["name"],
+                header="Choose how to provide client credential (or type in a client secret)",
+                accept_nonempty_string=True,
+                )
+            app = msal.ConfidentialClientApplication(
+                chosen_app["client_id"],
+                client_credential=_managed_identity()
+                    if isinstance(credential, dict) else credential,
+                authority=authority,
+                )
+        else:
+            app = msal.PublicClientApplication(
+                chosen_app["client_id"] if isinstance(chosen_app, dict) else chosen_app,
+                authority=authority,
+                allow_broker=_input_boolean("Allow broker? (Azure CLI currently only supports @microsoft.com accounts when enabling broker)"),
             )
     if _input_boolean("Enable MSAL Python's DEBUG log?"):
         logging.basicConfig(level=logging.DEBUG)
@@ -213,6 +248,7 @@ def main():
                 acquire_ssh_cert_silently,
                 acquire_ssh_cert_interactive,
             ],
+            msal.ConfidentialClientApplication: [acquire_token_for_client],
             msal.ClientApplication: [
                 acquire_token_silent,
                 acquire_token_by_username_password,
