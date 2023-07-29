@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690671399101,
+  "lastUpdate": 1690672314562,
   "repoUrl": "https://github.com/AzureAD/microsoft-authentication-library-for-python",
   "entries": {
     "Benchmark": [
@@ -160,6 +160,86 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.00001860609111086352",
             "extra": "mean: 138.13867957223266 usec\nrounds: 6173"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "committer": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "distinct": true,
+          "id": "7b1030f35bbb8f2a4c4f4ca3fe41a99b2b69aa28",
+          "message": "Add benchmark action and publish it to gh-pages\n\nExperimenting not using GPO\n\nUse vanilla git command to publish\n\nDo not run benchmark in matrix",
+          "timestamp": "2023-07-29T16:08:39-07:00",
+          "tree_id": "ac92391893e44239683b133d90893116c5965a70",
+          "url": "https://github.com/AzureAD/microsoft-authentication-library-for-python/commit/7b1030f35bbb8f2a4c4f4ca3fe41a99b2b69aa28"
+        },
+        "date": 1690672314069,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1_token_per_tenant_and_cache_hit",
+            "value": 38300.00446908366,
+            "unit": "iter/sec",
+            "range": "stddev: 9.844864177972842e-7",
+            "extra": "mean: 26.109657527774313 usec\nrounds: 14772"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 25432.31211238378,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000011708989949636449",
+            "extra": "mean: 39.32005849806589 usec\nrounds: 19881"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1000_tokens_per_tenant_and_cache_hit",
+            "value": 708.227935920858,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000008565503474902845",
+            "extra": "mean: 1.411974802575066 msec\nrounds: 699"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 25094.141899800547,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000001504690572239288",
+            "extra": "mean: 39.84993804502031 usec\nrounds: 19724"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1_token_per_tenant_and_cache_miss",
+            "value": 8381.326031342443,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000017168041008957286",
+            "extra": "mean: 119.31286245880942 usec\nrounds: 7605"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 7549.621837084086,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00001677801479869199",
+            "extra": "mean: 132.45696560428425 usec\nrounds: 7123"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1000_tokens_per_tenant_and_cache_miss",
+            "value": 654.1390254452017,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00002351268380147235",
+            "extra": "mean: 1.5287270153610055 msec\nrounds: 651"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 7475.141370943885,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000016963040090045192",
+            "extra": "mean: 133.77673416144773 usec\nrounds: 6440"
           }
         ]
       }
