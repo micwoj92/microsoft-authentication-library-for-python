@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690866402786,
+  "lastUpdate": 1690870817718,
   "repoUrl": "https://github.com/AzureAD/microsoft-authentication-library-for-python",
   "entries": {
     "Benchmark": [
@@ -720,6 +720,86 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.000022666648549215152",
             "extra": "mean: 162.3879474733896 usec\nrounds: 3008"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "committer": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "distinct": true,
+          "id": "a8ec0a9d56c1df40e417bf2bd2c70ebcb9cce12b",
+          "message": "Use 40% threshold",
+          "timestamp": "2023-07-31T23:16:23-07:00",
+          "tree_id": "de8f1ab796d41ae7ecf165311dd6fe39bb2f66f7",
+          "url": "https://github.com/AzureAD/microsoft-authentication-library-for-python/commit/a8ec0a9d56c1df40e417bf2bd2c70ebcb9cce12b"
+        },
+        "date": 1690870816842,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1_token_per_tenant_and_cache_hit",
+            "value": 33352.99427058098,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000005089071706462011",
+            "extra": "mean: 29.982315587241004 usec\nrounds: 5992"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 22754.624549013195,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000007032019388805663",
+            "extra": "mean: 43.947110524544655 usec\nrounds: 14205"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1000_tokens_per_tenant_and_cache_hit",
+            "value": 616.5793646737886,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00017011942359989294",
+            "extra": "mean: 1.6218512283963094 msec\nrounds: 648"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 22163.651781844495,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000007399778137926302",
+            "extra": "mean: 45.11891857185542 usec\nrounds: 12772"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1_token_per_tenant_and_cache_miss",
+            "value": 7626.516964202652,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000026038928715434448",
+            "extra": "mean: 131.1214548782623 usec\nrounds: 4643"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 6526.7286242344535,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000024441182677519855",
+            "extra": "mean: 153.2161144691831 usec\nrounds: 4202"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1000_tokens_per_tenant_and_cache_miss",
+            "value": 554.6549980534157,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0001614248477652857",
+            "extra": "mean: 1.8029225437606091 msec\nrounds: 537"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 6483.185671287098,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000024258279762075916",
+            "extra": "mean: 154.24515827594234 usec\nrounds: 5244"
           }
         ]
       }
