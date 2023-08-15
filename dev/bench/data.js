@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692138483870,
+  "lastUpdate": 1692141171861,
   "repoUrl": "https://github.com/AzureAD/microsoft-authentication-library-for-python",
   "entries": {
     "Benchmark": [
@@ -1600,6 +1600,86 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.00003917236573158812",
             "extra": "mean: 162.63364528303754 usec\nrounds: 5300"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "committer": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "distinct": true,
+          "id": "83fc2730446f7cb957c587277d38de0444d70f29",
+          "message": "Add benchmark action and publish it to gh-pages\n\nExperimenting not using GPO\n\nUse vanilla git command to publish\n\nDo not run benchmark in matrix\n\nSkip chatty test case discovery during benchmark",
+          "timestamp": "2023-08-15T13:43:06-07:00",
+          "tree_id": "62d057d7789ca251298590bab1083c92334a581c",
+          "url": "https://github.com/AzureAD/microsoft-authentication-library-for-python/commit/83fc2730446f7cb957c587277d38de0444d70f29"
+        },
+        "date": 1692141171347,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1_token_per_tenant_and_cache_hit",
+            "value": 29648.386483374292,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000002111247678530482",
+            "extra": "mean: 33.72864828785076 usec\nrounds: 6892"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 20243.60227831178,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000024970275574046906",
+            "extra": "mean: 49.398322801044245 usec\nrounds: 17122"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1000_tokens_per_tenant_and_cache_hit",
+            "value": 563.7836734460801,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000015598971619156847",
+            "extra": "mean: 1.7737299732139888 msec\nrounds: 560"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 19972.12252158832,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000002682733343696856",
+            "extra": "mean: 50.069790975850324 usec\nrounds: 13209"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1_token_per_tenant_and_cache_miss",
+            "value": 6913.3917804024795,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0002190556629032415",
+            "extra": "mean: 144.6468002630371 usec\nrounds: 5322"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 6285.066312621163,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000021670802735830957",
+            "extra": "mean: 159.10731092715454 usec\nrounds: 5921"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_1000_tokens_per_tenant_and_cache_miss",
+            "value": 499.8107618849478,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00029880863564999766",
+            "extra": "mean: 2.0007572390571924 msec\nrounds: 297"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 5577.415233422301,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00012590228355991259",
+            "extra": "mean: 179.29452230982633 usec\nrounds: 4953"
           }
         ]
       }
