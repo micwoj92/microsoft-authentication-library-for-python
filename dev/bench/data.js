@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1694141332817,
+  "lastUpdate": 1694146813327,
   "repoUrl": "https://github.com/AzureAD/microsoft-authentication-library-for-python",
   "entries": {
     "Benchmark": [
@@ -2668,6 +2668,58 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.000017466502746016826",
             "extra": "mean: 142.31565796385598 usec\nrounds: 6473"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "committer": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "distinct": true,
+          "id": "bbde57695be9dcd9350679402e934d39fa147e49",
+          "message": "Placeholders in some error will use curly brackets\n\nThis way, it will remain visible even if it is rendered on web.\n\nThe choice of curly brackets is influenced by URL Template RFC 6570.",
+          "timestamp": "2023-09-07T21:16:24-07:00",
+          "tree_id": "70d7f06831bbdbca92bc995c15079b85e02542a2",
+          "url": "https://github.com/AzureAD/microsoft-authentication-library-for-python/commit/bbde57695be9dcd9350679402e934d39fa147e49"
+        },
+        "date": 1694146812833,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 25925.595439179775,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000018684477799922294",
+            "extra": "mean: 38.571920261039054 usec\nrounds: 9042"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 23500.247462361625,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000022218723029324604",
+            "extra": "mean: 42.552743395643645 usec\nrounds: 14006"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 7580.79990484609,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00001691109976914507",
+            "extra": "mean: 131.9122008959426 usec\nrounds: 7143"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 7311.037258350612,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00001638371137308715",
+            "extra": "mean: 136.77949717159592 usec\nrounds: 6541"
           }
         ]
       }
