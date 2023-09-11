@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1694445648993,
+  "lastUpdate": 1694461807699,
   "repoUrl": "https://github.com/AzureAD/microsoft-authentication-library-for-python",
   "entries": {
     "Benchmark": [
@@ -3240,6 +3240,58 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.00001656283840621064",
             "extra": "mean: 138.85634290737022 usec\nrounds: 5118"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "committer": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "distinct": true,
+          "id": "c89490f708cce1e86573c35fae8b169e016e88cc",
+          "message": "Bumping version number",
+          "timestamp": "2023-09-11T12:46:50-07:00",
+          "tree_id": "2220ddb74fb71b45343a1eae54488e77489f1bc8",
+          "url": "https://github.com/AzureAD/microsoft-authentication-library-for-python/commit/c89490f708cce1e86573c35fae8b169e016e88cc"
+        },
+        "date": 1694461806821,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 22991.148491420918,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00001684122341019096",
+            "extra": "mean: 43.49499984192382 usec\nrounds: 6325"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 20961.12687782167,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000028925184616351335",
+            "extra": "mean: 47.70735876123481 usec\nrounds: 12270"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 7229.261409426722,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000017466588504140465",
+            "extra": "mean: 138.32671740103802 usec\nrounds: 4402"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 6809.363706107749,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000017331141823720808",
+            "extra": "mean: 146.85659970006256 usec\nrounds: 4669"
           }
         ]
       }
