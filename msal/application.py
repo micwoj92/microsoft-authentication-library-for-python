@@ -1834,10 +1834,23 @@ class PublicClientApplication(ClientApplication):  # browser app or mobile app
             New in version 1.15.
 
         :param int parent_window_handle:
-            OPTIONAL. If your app is a GUI app running on modern Windows system,
-            and your app opts in to use broker,
-            you are recommended to also provide its window handle,
-            so that the sign in UI window will properly pop up on top of your window.
+            OPTIONAL.
+
+            * If your app does not opt in to use broker,
+              you do not need to provide a ``parent_window_handle`` here.
+
+            * If your app opts in to use broker,
+              ``parent_window_handle`` is required.
+
+              - If your app is a GUI app running on modern Windows system,
+                you are required to also provide its window handle,
+                so that the sign-in window will pop up on top of your window.
+              - If your app is a console app runnong on Windows system,
+                you can use a placeholder
+                ``PublicClientApplication.CONSOLE_WINDOW_HANDLE``.
+              - If your app is running on Mac,
+                you can use a placeholder
+                ``PublicClientApplication.CONSOLE_WINDOW_HANDLE``.
 
             New in version 1.20.0.
 
