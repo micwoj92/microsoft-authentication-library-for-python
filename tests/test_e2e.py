@@ -1216,6 +1216,14 @@ class PopTestCase(LabBasedTestCase):
             )
         self.assertEqual(validation.status_code, 200)
 
+    #@unittest.skipUnless(self.app.is_pop_supported(), "Need to enable broker first")
+    def test_at_pop_calling_pattern(self):
+        # https://identitydivision.visualstudio.com/DevEx/_git/AuthLibrariesApiReview?path=/PoPTokensProtocol/PoP_API_In_MSAL.md&_a=preview&anchor=proposal-2---optional-isproofofposessionsupportedbyclient-helper-(accepted)
+        endpoint = "https://20.190.132.47/beta/me"
+        resp = requests.get(endpoint, verify=False)
+        self.assertEqual(resp.status_code, 401, "Initial call should end with an http 401 error")
+        print(resp.headers)  # .get("WWW-Authentication"))
+
 
 if __name__ == "__main__":
     unittest.main()
