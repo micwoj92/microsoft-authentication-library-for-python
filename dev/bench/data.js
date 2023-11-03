@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699043587580,
+  "lastUpdate": 1699044740563,
   "repoUrl": "https://github.com/AzureAD/microsoft-authentication-library-for-python",
   "entries": {
     "Benchmark": [
@@ -6463,6 +6463,58 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.000013515070973919352",
             "extra": "mean: 110.6006225620241 usec\nrounds: 4512"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rayluo@microsoft.com",
+            "name": "Ray Luo",
+            "username": "rayluo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9c124b5ef4ab51296960da37f02b05934991f087",
+          "message": "Merge pull request #569 from AzureAD/device-flow-and-msal-runtime\n\nacquire_token_silent() shall not invoke broker if the account was not established by broker",
+          "timestamp": "2023-11-03T13:49:40-07:00",
+          "tree_id": "a38955e0ff71725f4cba43a2a2cdd5ddca80fecd",
+          "url": "https://github.com/AzureAD/microsoft-authentication-library-for-python/commit/9c124b5ef4ab51296960da37f02b05934991f087"
+        },
+        "date": 1699044739577,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 22889.269321293265,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000017382757257028742",
+            "extra": "mean: 43.688594247511745 usec\nrounds: 5841"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_hit",
+            "value": 19640.02988859419,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000002973214971025363",
+            "extra": "mean: 50.91641945925669 usec\nrounds: 11696"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_1_tenant_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 7342.486091117227,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000017550486862453496",
+            "extra": "mean: 136.19365261171924 usec\nrounds: 3676"
+          },
+          {
+            "name": "tests/test_benchmark.py::test_cca_many_tenants_with_10_tokens_per_tenant_and_cache_miss",
+            "value": 6888.139684297021,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00001758400619312282",
+            "extra": "mean: 145.17707912917513 usec\nrounds: 3905"
           }
         ]
       }
